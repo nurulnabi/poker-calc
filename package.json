@@ -1,0 +1,36 @@
+{
+  "name": "poker-calc",
+  "version": "0.1.0",
+  "description": "Fastest way to calcaulate poker hand types, best hand, Texas Hold'em winner. More comming soon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nurulnabi/poker-calc.git"
+  },
+  "keywords": [
+    "poker",
+    "casino",
+    "texas",
+    "holdem",
+    "winner",
+    "algo",
+    "best",
+    "hand",
+    "cards",
+    "game",
+    "card",
+    "game"
+  ],
+  "author": "MD NOORUL NABI ANSARI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nurulnabi/poker-calc/issues"
+  },
+  "homepage": "https://github.com/nurulnabi/poker-calc#readme",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
+}
