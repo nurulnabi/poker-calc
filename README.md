@@ -22,7 +22,7 @@ var winner = pokerCal.getHoldemWinner(param);	//winner is an array which contain
 ```
 ## Notes
 
-param to passed as argument of getHoldemWinner is an object which must be in the following format.
+param to be passed as argument of getHoldemWinner is an object which must be in the following format.
 
 var params = {
     "boardCards": [
