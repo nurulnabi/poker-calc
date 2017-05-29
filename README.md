@@ -15,7 +15,7 @@ npm test
 
 ## Usage
 
-```
+```javascript
 var pokerCalc = require('poker-calc');
 
 var winner = pokerCal.getHoldemWinner(param);	//winner is an array which contains the winners
