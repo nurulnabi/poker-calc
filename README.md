@@ -11,11 +11,11 @@ npm install poker-calc --save
 ```
 npm test
 ```
-```
+```javascript
 
 ## Usage
 
-```javascript
+
 var pokerCalc = require('poker-calc');
 
 var winner = pokerCal.getHoldemWinner(param);	//winner is an array which contains the winners
@@ -24,6 +24,7 @@ var winner = pokerCal.getHoldemWinner(param);	//winner is an array which contain
 
 param to be passed as argument of getHoldemWinner is an object which must be in the following format.
 
+```javascript
 var params = {
     "boardCards": [
         { "type": "heart", "rank": 1 },
@@ -36,3 +37,4 @@ var params = {
         { "playerId": "2", "cards": [{ "type": "heart", "rank": 6 }, { "type": "club", "rank": 5 }] }
     ]
 }
+```
