@@ -2,7 +2,7 @@
  * @Author: noor
  * @Date:   2017-05-26 19:42:07
  * @Last Modified by:   noor
- * @Last Modified time: 2017-05-26 19:52:00
+ * @Last Modified time: 2017-05-29 13:51:13
  */
 
 var winner = require('./index');
@@ -22,4 +22,4 @@ var params = {
 console.log("Input:");
 console.log(JSON.stringify(params));
 console.log("Output:");
-console.log(JSON.stringify(winner(params)));
+console.log(JSON.stringify(winner.getHoldemWinner(params)));

@@ -2,7 +2,7 @@
 * @Author: noor
 * @Date:   2017-05-24 10:00:31
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-26 19:36:57
+* @Last Modified time: 2017-05-29 14:00:36
 */
 
 var _					= require('underscore');
@@ -70,6 +70,9 @@ var findHighestHand = function(params, arr, idx){
 }	
 
 var decideWinner = function(params){
+	if(params.boardCards.length < 5 || params.playerCards.length < 1){
+		return [];
+	}
 	prepareHighHandForEachPlayer(params);
 	groupCardsWithEqualRank(params);
 	getHighestCards(params);
@@ -77,4 +80,4 @@ var decideWinner = function(params){
 	return params.winner;
 }
 
-module.exports = decideWinner;
+module.exports = { getHoldemWinner:decideWinner };
