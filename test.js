@@ -2,7 +2,7 @@
  * @Author: noor
  * @Date:   2017-05-26 19:42:07
  * @Last Modified by:   noor
- * @Last Modified time: 2017-05-29 13:51:13
+ * @Last Modified time: 2017-05-29 15:58:54
  */
 
 var winner = require('./index');

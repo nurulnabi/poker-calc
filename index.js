@@ -2,11 +2,11 @@
 * @Author: noor
 * @Date:   2017-05-24 10:00:31
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-29 14:00:36
+* @Last Modified time: 2017-05-29 16:01:13
 */
 
 var _					= require('underscore');
-var prepareHighHand		= require('./lib/findType');
+var handGenerator		= require('./lib/findType');
 var nameAndPriority		= require('./lib/nameAndPriority');
 
 var prepareHighHandForEachPlayer = function(params){
@@ -14,12 +14,8 @@ var prepareHighHandForEachPlayer = function(params){
 	for(var pCards of params.playerCards){
 		var tmpParams 	   = { set: []};
 		tmpParams.set 	   = params.boardCards.concat(pCards.cards);
-		tmpParams.set.forEach(function(card){
-			card.name 	  = nameAndPriority.getName(card.rank);
-			card.priority = nameAndPriority.getPriority(card.rank);
-		});
 		tmpParams.playerId = pCards.playerId;
-		prepareHighHand(tmpParams);
+		handGenerator.prepareHighHand(tmpParams);
 		params.handsArray.push(tmpParams);
 	}
 }
