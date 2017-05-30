@@ -111,4 +111,19 @@ var winner = pokerCalc.getHoldemWinner(params2,{ compactCards: true});  //winner
 ```
 
 ## Notes
-* `compactCards` flag can be used in both card formats
+* `compactCards` flag can be used in both card formats.
+* Ranks of different cards are as below
+* Card - Rank
+    * A  - 1
+    * 2  - 2
+    * 3  - 3
+    * 4  - 4
+    * 5  - 5
+    * 6  - 6
+    * 7  - 7
+    * 8  - 8
+    * 9  - 9
+    * 10 - 10
+    * J  - 11
+    * Q  - 12
+    * k  - 13
