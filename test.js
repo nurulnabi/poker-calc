@@ -2,7 +2,7 @@
  * @Author: noor
  * @Date:   2017-05-26 19:42:07
  * @Last Modified by:   noor
- * @Last Modified time: 2017-05-30 12:45:15
+ * @Last Modified time: 2017-05-30 17:04:11
  */
 
 var winner = require('./index');
@@ -30,5 +30,5 @@ var params2 = {
 
 console.log("Input:");
 console.log(JSON.stringify(params));
-console.log("Output:");
+console.log("Output:"); 
 console.log(JSON.stringify(winner.getHoldemWinner(params, { compactCards:true })));
