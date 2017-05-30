@@ -31,5 +31,84 @@ var params = {
     ]
 }
 
-var winner = pokerCalc.getHoldemWinner(params);	//winner is an array which contains the winners
+var params2 = {
+    "boardCards": [                 // ["14H", "2H", "JH", "10H", "KH"]
+        "AH", "2H", "JH", "10H", "KH"
+    ],
+    "playerCards": [{ "playerId": "1", "cards": ["JS", "3C"] },
+        { "playerId": "2", "cards": ["6H", "5C"] }
+    ]
+}
+
+var winner = pokerCalc.getHoldemWinner(params,{ compactCards: false});   //winner is an array which contains the winners
+//output
+[
+  {
+    "playerId": "2",
+    "hand": {
+      "handInfo": {
+        "type": "Flush",
+        "strength": 6
+      },
+      "cards": [
+        {
+          "type": "Heart",
+          "rank": 1,
+          "name": "A",
+          "priority": 14
+        },
+        {
+          "type": "Heart",
+          "rank": 13,
+          "name": "K",
+          "priority": 13
+        },
+        {
+          "type": "Heart",
+          "rank": 11,
+          "name": "J",
+          "priority": 11
+        },
+        {
+          "type": "Heart",
+          "rank": 10,
+          "name": "10",
+          "priority": 10
+        },
+        {
+          "type": "Heart",
+          "rank": 6,
+          "name": "6",
+          "priority": 6
+        }
+      ]
+    }
+  }
+]
+
+
+
+var winner = pokerCalc.getHoldemWinner(params2,{ compactCards: true});  //winner is an array which contains the winners
+//output
+[
+  {
+    "playerId": "2",
+    "hand": {
+      "handInfo": {
+        "type": "Flush",
+        "strength": 6
+      },
+      "cards": [
+        "AH",
+        "KH",
+        "JH",
+        "10H",
+        "6H"
+      ]
+    }
+  }
+]
 ```
+
+## Notes
+* `compactCards` flag can be used in both card formats

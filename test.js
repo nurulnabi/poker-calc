@@ -2,7 +2,7 @@
  * @Author: noor
  * @Date:   2017-05-26 19:42:07
  * @Last Modified by:   noor
- * @Last Modified time: 2017-05-29 15:58:54
+ * @Last Modified time: 2017-05-30 12:45:15
  */
 
 var winner = require('./index');
@@ -19,7 +19,16 @@ var params = {
     ]
 }
 
+var params2 = {
+    "boardCards": [                         // ["14H", "2H", "JH", "10H", "KH"]
+        "AH", "2H", "JH", "10H", "KH"
+    ],
+    "playerCards": [{ "playerId": "1", "cards": ["JS", "3C"] },
+        { "playerId": "2", "cards": ["6H", "5C"] }
+    ]
+}
+
 console.log("Input:");
 console.log(JSON.stringify(params));
 console.log("Output:");
-console.log(JSON.stringify(winner.getHoldemWinner(params)));
+console.log(JSON.stringify(winner.getHoldemWinner(params, { compactCards:true })));

@@ -2,12 +2,13 @@
 * @Author: noor
 * @Date:   2017-05-24 10:00:31
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-29 16:01:13
+* @Last Modified time: 2017-05-30 12:28:00
 */
 
 var _					= require('underscore');
 var handGenerator		= require('./lib/findType');
 var nameAndPriority		= require('./lib/nameAndPriority');
+var utilsLib			= require('./utils/lib');
 
 var prepareHighHandForEachPlayer = function(params){
 	params.handsArray = [];
@@ -65,7 +66,7 @@ var findHighestHand = function(params, arr, idx){
   	findHighestHand(params, tmpArr, idx);
 }	
 
-var decideWinner = function(params){
+var decideWinner = function(params, flags){
 	if(params.boardCards.length < 5 || params.playerCards.length < 1){
 		return [];
 	}
@@ -73,6 +74,9 @@ var decideWinner = function(params){
 	groupCardsWithEqualRank(params);
 	getHighestCards(params);
 	findHighestHand(params, params.highestCards, 0);
+	if(flags.compactCards){
+		return utilsLib.compactCards(params.winner);
+	}
 	return params.winner;
 }
 
