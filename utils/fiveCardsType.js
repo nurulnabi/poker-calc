@@ -2,7 +2,7 @@
 * @Author: noor
 * @Date:   2017-05-30 15:41:07
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-30 16:25:54
+* @Last Modified time: 2017-05-31 19:07:59
 */
 
 var _ 				= require('underscore');
@@ -25,11 +25,11 @@ var getTypeInfo = function(val, isInSeq, isSameSuit){
 	switch(val){
 		case 11111:
 			if(isInSeq && isSameSuit){
-			  return { type: "Straight Flush", strength: 5};
+			  return { type: "Straight Flush", strength: 9};
 			} if(/*!isInSeq &&*/ isSameSuit){
 			  return { type: "Flush", strength:6 };
 			} if(isInSeq /*&& !isSameSuit*/){
-			  return { type: "Straight", strength: 9 };
+			  return { type: "Straight", strength:  5};
 			} /*if(!isInSeq && !isSameSuit)*/{
 			  return { type:"High Card", strength: 1};
 			}
@@ -98,7 +98,7 @@ var assignType = function(set){
 	}
 
 	// console.log(nameString);
-	console.log(nameString, rf, isInSeq, isSameSuit);
+	// console.log(/*nameString, rf, isInSeq, */isSameSuit);
 	if(rf == 5 && isSameSuit){
 		return { type: "Royal Flush", strength: 10 };
 	}else{
@@ -116,6 +116,9 @@ var prepareType = function(set){
 	}
 	set = assignNameAndPriority(set);
 	set = _.sortBy(set, "rank");
+	var type = assignType(set);
+	// console.log(type);
+	// return type;
 	return assignType(set);
 }
 
