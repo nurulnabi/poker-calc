@@ -2,7 +2,7 @@
 * @Author: noor
 * @Date:   2017-05-30 15:41:07
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-31 19:07:59
+* @Last Modified time: 2017-06-01 15:23:08
 */
 
 var _ 				= require('underscore');
@@ -111,7 +111,8 @@ var assignType = function(set){
 }
 
 var prepareType = function(set){
-	if(set.length < 5){
+	if(set.length < 5 && set.length > 5){
+		console.log(new Error("There must be only five cards"));
 		return [];
 	}
 	set = assignNameAndPriority(set);
