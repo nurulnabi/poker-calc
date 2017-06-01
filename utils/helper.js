@@ -2,7 +2,7 @@
 * @Author: noor
 * @Date:   2017-05-26 09:36:07
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-31 19:06:52
+* @Last Modified time: 2017-06-01 13:17:43
 */
 
 var _ = require('underscore');
@@ -167,6 +167,19 @@ helper.findHighestHand = function(params, arr, idx){
     return;
   }else
   	this.findHighestHand(params, tmpArr, idx);
+}
+
+helper.groupCardsByName = function(cards){
+	var result = {};
+	for(var card of cards){
+		if(result[card.name] == undefined){
+			result[card.name] = {count:1, cards:[card]}
+		}else{
+			result[card.name].count++;
+			result[card.name].cards.push(card);
+		}
+	}
+	return result;
 }
 
 module.exports = helper;
