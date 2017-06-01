@@ -2,7 +2,7 @@
 * @Author: noor
 * @Date:   2017-05-26 09:36:07
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-30 12:14:04
+* @Last Modified time: 2017-06-01 13:17:43
 */
 
 var _ = require('underscore');
@@ -122,6 +122,64 @@ helper.isCardsInSeq = function(cards){
 	}
 
 	return seq >= 5 ? true : false;
+}
+
+helper.groupCardsWithEqualRank = function(params){
+	groupedCards = {};
+	for(var playerHand of params.handsArray){
+		if(groupedCards[playerHand.hand.handInfo.strength]){
+			groupedCards[playerHand.hand.handInfo.strength].push(playerHand);
+		}else{
+			groupedCards[playerHand.hand.handInfo.strength] = [ playerHand ];
+		}
+	}
+	params.groupedCards = groupedCards;
+};
+
+helper.getHighestCards = function(params){
+	var groupedCards   = params.groupedCards;
+	var keys 		   = [];
+	for(var k in groupedCards){
+		keys.push(parseInt(k));
+	}
+	var key 		   = _.max(keys);
+	params.highestCards = groupedCards[key]
+	params.maxStrength  = key; 
+};
+
+helper.findHighestHand = function(params, arr, idx){
+  var tester = -Infinity;
+  var status = false;
+  var tmpArr = [];
+  for(var i = 0; i<arr.length; i++){
+  	var checker = arr[i].hand.cards[idx].priority;
+    if( checker > tester){
+        tmpArr = [];
+        tester = arr[i].hand.cards[idx].priority;
+        tmpArr.push(arr[i]);
+
+      }else if(checker == tester)
+        tmpArr.push(arr[i]);
+  }
+  idx = idx+1;
+  if(idx == 5 || tmpArr.length == 1){
+    params.winner = tmpArr;
+    return;
+  }else
+  	this.findHighestHand(params, tmpArr, idx);
+}
+
+helper.groupCardsByName = function(cards){
+	var result = {};
+	for(var card of cards){
+		if(result[card.name] == undefined){
+			result[card.name] = {count:1, cards:[card]}
+		}else{
+			result[card.name].count++;
+			result[card.name].cards.push(card);
+		}
+	}
+	return result;
 }
 
 module.exports = helper;

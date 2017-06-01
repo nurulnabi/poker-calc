@@ -2,10 +2,11 @@
 * @Author: noor
 * @Date:   2017-05-30 11:25:07
 * @Last Modified by:   noor
-* @Last Modified time: 2017-05-30 12:41:41
+* @Last Modified time: 2017-06-01 13:47:21
 */
 
 var nameAndPriority = require('../lib/nameAndPriority');
+var helper 			= require('./helper');
 
 var cardType = {
 	"S":"Spade",	"H":"Heart",	"D":"Diamond",	"C":"Club"
@@ -44,7 +45,56 @@ var createCards = function(cardsStringArr){
 	return cards;
 }
 
+var typeToCardsArrangement = {
+	"high card":function(cards){
+		return helper.getNHighest(cards, 5, "priority");
+	},
+	"one pair":function(cards){
+		var groupedCards 	= helper.groupCardsByName(cards);
+		var cardsWithCount  = helper.getCardsWithEqualCount(groupedCards);
+		return cardsWithCount['2'].concat(helper.getNHighest(cardsWithCount['1'], 4, "priority"));
+	},
+	"two pair":function(cards){
+		var groupedCards 	= helper.groupCardsByName(cards);
+		var cardsWithCount  = helper.getCardsWithEqualCount(groupedCards);
+		return helper.getNHighest(cardsWithCount['2'], 4, "priority").concat(cardsWithCount['1']);
+	},
+	"three of a kind":function(cards){
+		var groupedCards 	= helper.groupCardsByName(cards);
+		var cardsWithCount  = helper.getCardsWithEqualCount(groupedCards);
+		return cardsWithCount['3'].concat(helper.getNHighest(cardsWithCount['1'], 2, "priority"));
+	},
+	"straight":function(cards){
+		return	helper.checkRF(cards) ? helper.getNHighest(cards, 5, "priority") : helper.getNHighest(cards, 5, "rank");
+	},
+	"flush":function(cards){
+		return helper.getNHighest(cards, 5, "priority");
+	},
+	"royal flush":function(cards){
+		return helper.getNHighest(cards, 5, "priority");
+	},
+	"straight flush":function(cards){
+		return helper.getNHighest(cards, 5, "rank");
+	},
+	"full house":function(cards){
+		var groupedCards 	= helper.groupCardsByName(cards);
+		var cardsWithCount  = helper.getCardsWithEqualCount(groupedCards);
+		return cardsWithCount['3'].concat(cardsWithCount['2']);
+	},
+	"four of a kind":function(cards){
+		var groupedCards 	= helper.groupCardsByName(cards);
+		var cardsWithCount  = helper.getCardsWithEqualCount(groupedCards);
+		return cardsWithCount['4'].concat(cardsWithCount['1']);
+	}
+}
+
+var arrangeCards = function(playerHand){
+	// console.log(playerHand.handInfo.type.toLowerCase());
+	return typeToCardsArrangement[playerHand.handInfo.type.toLowerCase()](playerHand.cards);
+}
+
 module.exports = {
 	createCards		:createCards,
-	compactCards	:compactCards
+	compactCards	:compactCards,
+	arrangeCards	:arrangeCards
 }

@@ -1,5 +1,5 @@
 # poker-calc
-Fastest way to calculate poker hand types, best hand, Texas Hold'em winner. More coming soon.
+Fastest way to calculate poker hand types, best hand, Texas Hold'em winner, Omaha winner, get type of five cards hand. More coming soon.
 
 ## Installation
 
