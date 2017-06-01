@@ -1,8 +1,8 @@
 # poker-calc
 
 [![npm version](https://badge.fury.io/js/poker-calc.svg)](https://badge.fury.io/js/poker-calc)
-[![Downloads](https://img.shields.io/npm/dm/poker-calc.svg?style=flat)]
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)]
+![Downloads](https://img.shields.io/npm/dm/poker-calc.svg?style=flat)
+![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)
 
 Fastest way to calculate poker hand types, best hand, Texas Hold'em winner, Omaha winner, get type of five cards hand. More coming soon.
 
