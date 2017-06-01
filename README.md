@@ -108,10 +108,18 @@ var winner = pokerCalc.getHoldemWinner(params2,{ compactCards: true});  //winner
     }
   }
 ]
+
+//for omaha winners
+pokerCalc.getOmahaWinner(params)  //here the playerCards for each player should be four
+
+//to get type of five cards hand
+pokerCalc.getType(cards)          //array of five cards
 ```
 
 ## Notes
 * `compactCards` flag can be used in both card formats.
+* Cards in compact format as in `params2` is not supported in `pokerCalc.getOmahaWinner`.
+* Cards in any format as illustrated above are supported for `pokerCalc.getType`
 * Ranks of different cards are as below
 * Card - Rank
     * A  - 1
