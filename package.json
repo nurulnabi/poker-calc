@@ -1,6 +1,6 @@
 {
   "name": "poker-calc",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Fastest way to calcaulate poker hand types, best hand, Texas Hold'em winner. More comming soon.",
   "main": "index.js",
   "scripts": {

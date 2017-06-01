@@ -115,10 +115,11 @@ var winner = pokerCalc.getHoldemWinner(params2,{ compactCards: true});  //winner
 ]
 
 //for omaha winners
-pokerCalc.getOmahaWinner(params)  //here the playerCards for each player should be four
+var winners = pokerCalc.getOmahaWinner(params)  //here the playerCards for each player should be four
 
 //to get type of five cards hand
-pokerCalc.getType(cards)          //array of five cards
+var typeObject =  pokerCalc.getType(cards)          //array of five cards
+//output  { type:"flush", strength:6 }
 ```
 
 ## Notes
