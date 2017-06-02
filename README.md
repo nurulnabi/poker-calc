@@ -5,7 +5,8 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)
 [![Build Status](https://travis-ci.org/nurulnabi/poker-calc.svg?branch=master)](https://travis-ci.org/nurulnabi/poker-calc)
 -----------
-![NPM](https://nodei.co/npm/poker-calc.png?downloads=true&downloadRank=true&stars=true)![NPM](https://nodei.co/npm-dl/poker-calc.png?height=2)
+![NPM](https://nodei.co/npm/poker-calc.png?downloads=true&downloadRank=true&stars=true)
+![NPM](https://nodei.co/npm-dl/poker-calc.png?height=2)
 
 Fastest way to calculate poker hand types, best hand, Texas Hold'em winner, Omaha winner, get type of five cards hand. More coming soon.
 
