@@ -2,7 +2,7 @@
 // * @Author: noor
 // * @Date:   2017-08-03 15:04:17
 // * @Last Modified by:   noor
-// * @Last Modified time: 2017-08-10 11:37:33
+// * @Last Modified time: 2017-08-10 15:44:55
 
 
 'use strict';
@@ -165,7 +165,7 @@ var getStraight = function getStraight(arr, stBy, nextTotalCards){
 	var	max   = _.max(originalVal);
 	var	range = _.range(min, max+1, 1);
 	var	start = 1;
-	var	end   = 15;
+	var end   = 15;
 	var	result = [];
 
 	//for lower limit
@@ -174,11 +174,7 @@ var getStraight = function getStraight(arr, stBy, nextTotalCards){
 	}
 	range = _.range( start, min, 1).concat(range);
 
-	// //for upper limit
-	// if( (max+nextTotalCards) < 14 ){
-	// 	end   = max+nextTotalCards+1;
-	// }
-	// range = range.concat(_.range( max, end, 1));
+	if( )
 	range = range.reduce( (memo, val)=>{ if(memo.indexOf(val) == -1) memo.push(val); return memo; }, [] );//returns uniq elements
 
 	customIterator.arr = range;
@@ -186,7 +182,8 @@ var getStraight = function getStraight(arr, stBy, nextTotalCards){
 		var diff = _.difference(partArr, originalVal);
 		console.log(partArr, originalVal, diff);
 		if( diff.length <= nextTotalCards ){
-			result.push(diff);
+			result = result.concat(diff)
+			// result.push(diff);
 			// result.push(diff.toString()+",");
 		}
 	}
@@ -196,19 +193,21 @@ var getStraight = function getStraight(arr, stBy, nextTotalCards){
 var params2 = {
     "boardCards": [                         // ["14H", "2H", "JH", "10H", "KH"]
         // "AH", "2H", "4H",
-        // "9S", "10H", "JC"
+        "9S", "10H", "JC"
         // "10s", "7s", "8d"
-        "4h", "9c", "qs"
+        // "4h", "9c", "qs"
     ],
-    "playerCards": [{ "playerId": "1", "cards": [/*"jS", "8C" *//*"4c", "5d"*/ "7s", "ad"] },
+    "playerCards": [{ "playerId": "1", "cards": ["jS", "8C" /*"4c", "5d" "7s", "ad"*/] },
         { "playerId": "2", "cards": ["6H", "5C"] }
     ]
 }
-var pRes = getStraight(utils_lib.createCards(params2.boardCards.concat(params2.playerCards[0].cards)), "rank", 0);
+var pRes = getStraight(utils_lib.createCards(params2.boardCards.concat(params2.playerCards[0].cards)), "rank", 2 );
 console.log(pRes);
 console.log("============================================");
-var cRes = getStraight(utils_lib.createCards(params2.boardCards), "rank", 0);
-console.log(cRes);		
+var cRes = getStraight(utils_lib.createCards(params2.boardCards), "rank", 2 );
+console.log(cRes);
+console.log();		
+console.log(_.difference(pRes, cRes));
 
 var removeOpenEndedCases = function(playerResult, communityResult){
 	for(var commRes of communityResult){
