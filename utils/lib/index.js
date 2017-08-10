@@ -2,7 +2,7 @@
 // * @Author: noor
 // * @Date:   2017-08-03 15:04:17
 // * @Last Modified by:   noor
-// * @Last Modified time: 2017-08-10 15:44:55
+// * @Last Modified time: 2017-08-10 18:19:44
 
 
 'use strict';
@@ -159,32 +159,51 @@ customIterator[Symbol.iterator] = function* (){
 	}
 }
 
-var getStraight = function getStraight(arr, stBy, nextTotalCards){
-	var originalVal = arr.map((card)=> parseInt(card[stBy],10));
-	var min   = _.min(originalVal);
-	var	max   = _.max(originalVal);
+var getRange = function( {arr, isCommunityCards, rightEnded, nextTotalCards} ){
+	var min   = _.min(arr);
+	var	max   = _.max(arr);
 	var	range = _.range(min, max+1, 1);
 	var	start = 1;
 	var end   = 15;
-	var	result = [];
 
-	//for lower limit
-	if( min-nextTotalCards > 0){
-		start = (min-nextTotalCards);
+	if( !rightEnded ){ 
+		//for lower limit
+		if( min-nextTotalCards > 0){
+			start = (min-nextTotalCards);
+		}
+		range = _.range( start, min, 1).concat(range);
+
+		//for upper limit
+		if( (max+nextTotalCards) < 14 ){
+			end   = max+nextTotalCards+1;
+		}
+		range = range.concat(_.range( max, end, 1));
+	}else if( isCommunityCards ){
+		//for upper limit
+		if( (max+nextTotalCards) < 14 ){
+			end   = max+nextTotalCards+1;
+		}
+		range = range.concat(_.range( max, end, 1));
 	}
-	range = _.range( start, min, 1).concat(range);
+	return range;
+}
 
-	if( )
+var getStraight = function getStraight(arr, stBy, nextTotalCards, isCommunityCards, rightEnded){
+	var result = [];
+	var tArr  = arr.map( (card) => parseInt(card[stBy], 10));
+	var range = getRange({ arr:tArr, nextTotalCards, isCommunityCards, rightEnded });
+
 	range = range.reduce( (memo, val)=>{ if(memo.indexOf(val) == -1) memo.push(val); return memo; }, [] );//returns uniq elements
 
 	customIterator.arr = range;
 	for(var partArr of customIterator){
-		var diff = _.difference(partArr, originalVal);
-		console.log(partArr, originalVal, diff);
-		if( diff.length <= nextTotalCards ){
-			result = result.concat(diff)
-			// result.push(diff);
-			// result.push(diff.toString()+",");
+		var diff = _.difference(partArr, tArr);
+		// console.log(partArr, tArr, diff);
+		if( diff.length <= nextTotalCards && diff.length >= 1){
+			if( !isCommunityCards )
+				result.push({ requiredCard:diff[0], sequence: partArr })
+			else
+				result = _.union(result, diff)
 		}
 	}
 	return result;
@@ -193,29 +212,42 @@ var getStraight = function getStraight(arr, stBy, nextTotalCards){
 var params2 = {
     "boardCards": [                         // ["14H", "2H", "JH", "10H", "KH"]
         // "AH", "2H", "4H",
-        "9S", "10H", "JC"
+        // "9S", "10H", "JC"
         // "10s", "7s", "8d"
         // "4h", "9c", "qs"
+        // "2s", "4d", "6c"
+        // "2s", "4d", "5c"
+        "As", "3d", "4c"
     ],
-    "playerCards": [{ "playerId": "1", "cards": ["jS", "8C" /*"4c", "5d" "7s", "ad"*/] },
-        { "playerId": "2", "cards": ["6H", "5C"] }
+    "playerCards": [{ "playerId": "1", "cards": ["jS", "8C" /*"4c", "5d"  "6s", "8d"*/] },
+        { "playerId": "2", "cards": ["9H", "7C"] }
     ]
 }
-var pRes = getStraight(utils_lib.createCards(params2.boardCards.concat(params2.playerCards[0].cards)), "rank", 2 );
-console.log(pRes);
-console.log("============================================");
-var cRes = getStraight(utils_lib.createCards(params2.boardCards), "rank", 2 );
-console.log(cRes);
-console.log();		
-console.log(_.difference(pRes, cRes));
 
-var removeOpenEndedCases = function(playerResult, communityResult){
-	for(var commRes of communityResult){
-		for(var playerRes of playerResult){
-			// if()
+var findAllPossibleHighestHand = function({ boardCards, playerCards, nextTotalCards, stBy }){
+	var pRes = getStraight(utils_lib.createCards(boardCards.concat(playerCards)), stBy, nextTotalCards );
+	var handToDel = [];
+	for(var idx in pRes){
+		var pSeq = pRes[idx];
+		var c = getStraight(utils_lib.createCards(boardCards.concat(pSeq.requiredCard+"s")), stBy, nextTotalCards, true, true )[0];
+		if( _.max(pSeq.sequence) < c ){	//if, possibly, someone is holding 'c' you will lose this hand hence excludes the currnet hand
+			handToDel = _.union(handToDel, [idx]);
 		}
 	}
+	if( handToDel.length !== pRes.length ){ //this is the risky position to be in, you may loose on this hand
+		for(var idx of handToDel){
+			pRes.splice(idx, 1);
+		}
+	}
+	
+	//get the highest among all, as we are interested in a single card at a time
+	var res = _.max(pRes, (pr)=> pr.requiredCard);
+	return res == -Infinity ? undefined : res;
 }
+
+// console.log();		
+console.log(findAllPossibleHighestHand({ playerCards: params2.playerCards[1].cards, boardCards: params2.boardCards, stBy:"rank", nextTotalCards:1}));
+console.log(findAllPossibleHighestHand({ playerCards: params2.playerCards[1].cards, boardCards: params2.boardCards, stBy:"priority", nextTotalCards:1}));
 // var allDifferent = ["11111", "111111", "1111111", "21111","211111","22111", "31111"];
 
 // var getPossibleHighestHand = function(params) {
